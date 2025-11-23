@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Your Brand – US-Style Landing with Bots & Penguin</title>
+  <title>Canopy Bots — Robotic canopy & gutter cleaning (QLD)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
@@ -88,14 +88,14 @@
               <div class="container nav-inner">
                 <div class="brand">
                   <div class="brand-mark">BC</div>
-                  <div class="brand-text">Boston Canopy Care</div>
+                      <div class="brand-text">Canopy Bots</div>
                 </div>
                 <nav class="links">
                   <a href="#services">Services</a>
-                  <a href="#compliance">Compliance</a>
-                  <a href="#regions">Regions</a>
+                  <a href="#about">About</a>
+                  <a href="#process">Process</a>
                   <a href="#faq">FAQ</a>
-                  <a href="#contact">Contact</a>
+                  <a href="#contact">Get a quote</a>
                 </nav>
                 <div style="display:flex;gap:0.6rem;align-items:center">
                   <button class="btn" data-scroll="#contact">Get a Quote</button>
@@ -117,9 +117,9 @@
               <section class="hero container" id="top">
                 <div class="hero-grid">
                   <div>
-                    <div class="kicker">Queensland canopy cleaning</div>
-                    <h1 data-content-key="heroTitle">Boston Canopy Care — Robotic canopy cleaning for QLD roofs & gutters</h1>
-                    <p class="lead" data-content-key="heroSubtitle">Fast, safe and compliant canopy cleaning across Brisbane, Gold Coast, Sunshine Coast and regional Queensland. Robotic precision reduces risk, improves reach, and speeds up turnaround.</p>
+                      <div class="kicker" data-content-key="heroKicker">Queensland canopy cleaning</div>
+                      <h1 data-content-key="heroTitle">Canopy Bots — Robotic canopy & gutter cleaning across Queensland</h1>
+                      <p class="lead" data-content-key="heroSubtitle">Fast, safe and compliant canopy cleaning for commercial, council and large residential sites — Brisbane, Gold Coast, Sunshine Coast and regional QLD.</p>
 
                     <div style="margin-top:1rem;display:flex;gap:0.75rem;flex-wrap:wrap">
                       <button class="btn" data-scroll="#contact">Request a quote</button>
@@ -158,10 +158,10 @@
               </section>
 
               <section id="services" class="container">
-                <div class="section-header">
-              <div class="muted">Services</div>
-                  <h2>What we do</h2>
-                  <p class="muted" data-content-key="aboutText">Robotic canopy and gutter cleaning for commercial, council and large residential sites.</p>
+                  <div class="section-header">
+                  <div class="muted">Services</div>
+                  <h2 data-content-key="servicesHeading">What we do</h2>
+                  <p class="muted" data-content-key="servicesIntro">Robotic canopy and gutter cleaning for commercial, council and large residential sites — we prioritise safety, speed and documentation.</p>
                 </div>
                 <div class="grid services">
                   <article class="card">
@@ -183,11 +183,11 @@
                 </div>
               </section>
 
-              <section id="compliance" class="container">
+              <section id="about" class="container">
                 <div class="section-header">
                   <div class="muted">Compliance</div>
-                  <h2>Safe, compliant cleaning</h2>
-                  <p class="muted">We follow relevant Queensland safety standards and provide documentation for AS1851-style maintenance where required.</p>
+                  <h2 data-content-key="aboutHeading">Who we are</h2>
+                  <p class="muted" data-content-key="aboutParagraph">We are Canopy Bots — a Queensland-based team bringing robotic precision to canopy and gutter cleaning. Our teams provide documented, insured and compliant work for councils and commercial sites.</p>
                 </div>
                 <div class="grid">
                   <div class="card">
@@ -201,11 +201,11 @@
                 </div>
               </section>
 
-              <section id="regions" class="container">
+              <section id="process" class="container">
                 <div class="section-header">
                   <div class="muted">Regions</div>
-                  <h2>Where we operate</h2>
-                  <p class="muted">Proudly servicing southeast Queensland and surrounding regions.</p>
+                  <h2 data-content-key="processHeading">How we work</h2>
+                  <p class="muted" data-content-key="processIntro">A simple, safe process to assess, plan and deliver canopy cleaning using robotic reach — inspection, surface-safe wash, debris removal and reporting.</p>
                 </div>
                 <div class="regions">
                   <span class="region-pill">Brisbane</span>
@@ -240,35 +240,45 @@
 
               <section id="contact" class="container">
                 <div class="section-header">
-                  <div class="muted">Contact</div>
-                  <h2>Request a quote or site visit</h2>
-                  <p class="muted">Drop your details and we'll get back with availability and a ballpark price.</p>
+                  <div class="muted">Get a quote</div>
+                  <h2 data-content-key="contactHeading">Tell us about your project</h2>
+                  <p class="muted">We’ll reply within 1 business day. No spam, no weird lists.</p>
                 </div>
+
                 <div class="grid contact-grid">
                   <div class="card">
-                      <form id="contactForm" data-endpoint="http://localhost:3002/api/contact">
+                    <form id="contactForm" data-endpoint="http://localhost:3002/api/contact">
                       <div style="display:grid;gap:0.6rem">
                         <label for="name">Name</label>
                         <input id="name" name="name" required />
+
                         <label for="email">Email</label>
                         <input id="email" name="email" type="email" required />
-                        <label for="phone">Phone</label>
-                        <input id="phone" name="phone" />
-                        <label for="suburb">Suburb / Region</label>
-                        <input id="suburb" name="suburb" placeholder="e.g. Fortitude Valley" />
-                        <label for="message">Tell us about the site</label>
-                        <textarea id="message" name="message" rows="4" placeholder="Canopy size, height, access notes"></textarea>
-                        <!-- Honeypot field (hidden from real users) -->
+
+                        <label for="business">Business / brand</label>
+                        <input id="business" name="business" placeholder="e.g. Acme Property Management" />
+
+                        <label for="website">Current website (if any)</label>
+                        <input id="website" name="website" placeholder="https://example.com" />
+
+                        <label for="objective">What are you trying to do?</label>
+                        <textarea id="objective" name="message" rows="5" placeholder="Tell us what you need — brief scope or goals" required></textarea>
+
+                        <!-- Honeypot (hidden) -->
                         <input type="text" name="hp" autocomplete="off" tabindex="-1" style="display:none" aria-hidden="true" />
-                        <button class="btn" type="submit">Send enquiry</button>
+
+                        <div style="display:flex;gap:0.5rem;align-items:center;margin-top:0.25rem">
+                          <button class="btn" type="submit">Get a quote</button>
+                          <div style="color:var(--muted);font-size:0.95rem">We’ll reply within 1 business day — no spam, no weird lists.</div>
+                        </div>
                       </div>
                     </form>
                   </div>
 
                   <aside class="card">
-                    <strong>Prefer to call?</strong>
+                    <strong>Need priority help?</strong>
                     <div class="muted">Call us: 07 5555 5555 · Mon–Fri 8am–5pm</div>
-                    <p style="margin-top:0.75rem;color:var(--muted)">We respond within 1 business day. For urgent projects ask for priority availability.</p>
+                    <p style="margin-top:0.75rem;color:var(--muted)">If your project is urgent include a short note above and we'll prioritise within business hours.</p>
                   </aside>
                 </div>
               </section>

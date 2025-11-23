@@ -54,6 +54,18 @@ This repository provides a small inline editing experience for rapid content upd
 
 In editor mode you'll be able to click into textual elements and edit them inline — the editor now auto-enables editing for most text elements under <code>main</code> and will create data keys automatically when needed. The editor includes a small sticky toolbar with a color picker so you can change text color live (and a single-click "Make all text white" helper). Edits are saved to the backend via `PUT /api/content` and persisted to `backend/content.json` (this file is ignored from git). The dev server ships with a default `ADMIN_TOKEN` of `101` to make saving quick during local testing; override it in `backend/.env` for production. The editor will prompt you for the token when saving.
 
+Contact / "Get a quote"
+
+The Contact page on the site has been replaced with a "Get a quote" form. The form fields are:
+
+- Name (required)
+- Email (required)
+- Business / brand
+- Current website (if any)
+- What are you trying to do? (message / objective — required)
+
+The backend will persist submissions to `backend/messages.json`. The backend still expects at least `name` and `email` in the payload and will accept `business`, `website`, and `message` fields as well.
+
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More

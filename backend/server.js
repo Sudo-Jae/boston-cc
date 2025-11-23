@@ -43,9 +43,16 @@ async function saveMessage(entry) {
 // Content helpers: load and save site content used by the frontend editor
 function defaultContent() {
   return {
-    heroTitle: 'Boston Canopy Care — Robotic canopy cleaning for QLD roofs & gutters',
-    heroSubtitle: 'Fast, safe and compliant canopy cleaning across Brisbane, Gold Coast, Sunshine Coast and regional Queensland.',
-    aboutText: '<p>Robotic canopy and gutter cleaning for commercial, council and large residential sites. Fast, safe and compliant cleaning with inspection reports on request.</p>'
+    heroKicker: 'Queensland canopy cleaning',
+    heroTitle: 'Canopy Bots — Robotic canopy & gutter cleaning across Queensland',
+    heroSubtitle: 'Fast, safe and compliant canopy cleaning for commercial, council and large residential sites.',
+    servicesHeading: 'What we do',
+    servicesIntro: 'Robotic canopy and gutter cleaning for commercial and large residential sites — we prioritise safety, speed and documentation.',
+    aboutHeading: 'Who we are',
+    aboutParagraph: 'Canopy Bots are a QLD-based team bringing robotic precision to canopy & gutter cleaning. We offer documented, insured and compliant services for councils and commercial sites.',
+    processHeading: 'How we work',
+    processIntro: 'We assess, plan and deliver canopy cleans using robots and safe, eco-friendly detergents. Post-work inspection and reporting is standard.',
+    contactHeading: 'Tell us about your project'
   };
 }
 
