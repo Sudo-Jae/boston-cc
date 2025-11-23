@@ -7,14 +7,14 @@ NAME="smoke-$(date +%s)"
 PAYLOAD="{\"name\":\"$NAME\",\"email\":\"$NAME@local.test\",\"message\":\"smoke test\"}"
 
 echo "POST /api/contact -> should return ok:true"
-curl -s -X POST "$BASE/api/contact" -H "Content-Type: application/json" -d "$PAYLOAD" | jq || true
+curl -s -X POST "$BASE/api/contact" -H "Content-Type: application/json" -d "$PAYLOAD" || true
 
 echo "GET /api/messages without ADMIN_TOKEN -> should be 403"
-curl -s -i "$BASE/api/messages" | sed -n '1,4p'
+curl -s -i "$BASE/api/messages" | sed -n '1,4p' || true
 
 if [ -n "$ADMIN_TOKEN" ]; then
   echo "GET /api/messages with ADMIN_TOKEN -> should return messages"
-  curl -s -H "Authorization: Bearer $ADMIN_TOKEN" "$BASE/api/messages" | jq '.messages | length'
+  curl -s -H "Authorization: Bearer $ADMIN_TOKEN" "$BASE/api/messages" || true
 else
   echo "No ADMIN_TOKEN set, skipping authorized messages check. To test include ADMIN_TOKEN env var"
 fi
