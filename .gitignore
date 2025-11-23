@@ -38,6 +38,7 @@ yarn-error.log*
 /backend/messages.json
 /backend/backend.log
 /backend/backend.pid
+ /backend/content.json
 
 # local static logs
 /static.log

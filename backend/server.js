@@ -14,6 +14,7 @@ const fs = require('fs').promises;
 const path = require('path');
 
 const MESSAGES_FILE = path.resolve(__dirname, 'messages.json');
+const CONTENT_FILE = path.resolve(__dirname, 'content.json');
 
 async function ensureMessagesFile() {
   try {
@@ -32,6 +33,38 @@ async function saveMessage(entry) {
     await fs.writeFile(MESSAGES_FILE, JSON.stringify(arr, null, 2), 'utf8');
   } catch (err) {
     console.error('Failed to save message:', err);
+  }
+}
+
+// Content helpers: load and save site content used by the frontend editor
+function defaultContent() {
+  return {
+    heroTitle: 'Boston Canopy Care — Robotic canopy cleaning for QLD roofs & gutters',
+    heroSubtitle: 'Fast, safe and compliant canopy cleaning across Brisbane, Gold Coast, Sunshine Coast and regional Queensland.',
+    aboutText: '<p>Robotic canopy and gutter cleaning for commercial, council and large residential sites. Fast, safe and compliant cleaning with inspection reports on request.</p>'
+  };
+}
+
+async function loadContent() {
+  try {
+    await fs.access(CONTENT_FILE);
+    const raw = await fs.readFile(CONTENT_FILE, 'utf8');
+    const obj = JSON.parse(raw || '{}');
+    return Object.assign({}, defaultContent(), obj);
+  } catch (err) {
+    // missing or invalid file -> return defaults
+    return defaultContent();
+  }
+}
+
+async function saveContent(content) {
+  try {
+    if (!content || typeof content !== 'object') throw new Error('Invalid content');
+    await fs.writeFile(CONTENT_FILE, JSON.stringify(content, null, 2), 'utf8');
+    return true;
+  } catch (err) {
+    console.error('Failed to save content:', err);
+    return false;
   }
 }
 
@@ -97,6 +130,36 @@ app.get('/api/messages', async (req, res) => {
     console.error('Failed to read messages:', err);
     return res.status(500).json({ ok: false, error: 'Failed to read messages' });
   }
+});
+
+// Content endpoints
+app.get('/api/content', async (req, res) => {
+  try {
+    const content = await loadContent();
+    return res.json({ ok: true, content });
+  } catch (err) {
+    console.error('Failed to load content', err);
+    return res.status(500).json({ ok: false, error: 'Failed to load content' });
+  }
+});
+
+app.put('/api/content', express.json(), async (req, res) => {
+  const token = req.get('x-admin-token') || req.query.token;
+  if (!process.env.ADMIN_TOKEN) {
+    return res.status(403).json({ ok: false, error: 'Admin access disabled on server (no ADMIN_TOKEN set).' });
+  }
+  if (!token || token !== process.env.ADMIN_TOKEN) {
+    return res.status(401).json({ ok: false, error: 'Unauthorized' });
+  }
+
+  const newContent = req.body;
+  if (!newContent || typeof newContent !== 'object') {
+    return res.status(400).json({ ok: false, error: 'Invalid content body' });
+  }
+
+  const ok = await saveContent(newContent);
+  if (!ok) return res.status(500).json({ ok: false, error: 'Failed to save content' });
+  return res.json({ ok: true });
 });
 
 app.post('/api/contact', async (req, res) => {
