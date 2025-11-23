@@ -47,6 +47,13 @@ Notes:
 - An admin endpoint `GET /api/messages` returns saved submissions; protect it in production using `ADMIN_TOKEN` in `backend/.env`.
 - Spam protections include a hidden honeypot field and a simple in-memory rate limiter.
 
+## Editor mode (inline editing)
+
+This repository provides a small inline editing experience for rapid content updates during development.
+
+
+In editor mode you'll be able to click into textual elements and edit them inline — the editor now auto-enables editing for most text elements under <code>main</code> and will create data keys automatically when needed. The editor includes a small sticky toolbar with a color picker so you can change text color live (and a single-click "Make all text white" helper). Edits are saved to the backend via `PUT /api/content` and persisted to `backend/content.json` (this file is ignored from git). The dev server ships with a default `ADMIN_TOKEN` of `101` to make saving quick during local testing; override it in `backend/.env` for production. The editor will prompt you for the token when saving.
+
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More

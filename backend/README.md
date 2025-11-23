@@ -37,7 +37,7 @@ ALLOWED_ORIGIN=http://localhost:8000
 
 - Persistence & admin endpoint
 - Added local persistence: incoming contact submissions are saved to `backend/messages.json`.
-- Admin read endpoint: `GET /api/messages` returns saved submissions as JSON. Protect it using an `ADMIN_TOKEN` environment variable (example `.env.example`). To call it use `Authorization: Bearer <ADMIN_TOKEN>` header or `?token=<ADMIN_TOKEN>` query.
+- Admin read endpoint: `GET /api/messages` returns saved submissions as JSON. The development server ships with a default `ADMIN_TOKEN` of `101` for convenience — override it in `backend/.env` for real deployments. To call it use `Authorization: Bearer <ADMIN_TOKEN>` header or `?token=<ADMIN_TOKEN>` query.
 
 Notes & next steps
 - This server logs incoming contact payloads and returns JSON responses. Replace the simple behaviour with your preferred persistence or integration if you need to store leads in a DB or forward to a CRM.

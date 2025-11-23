@@ -16,6 +16,10 @@ const path = require('path');
 const MESSAGES_FILE = path.resolve(__dirname, 'messages.json');
 const CONTENT_FILE = path.resolve(__dirname, 'content.json');
 
+// Admin token used to protect admin endpoints. Defaults to '101' for local/dev convenience.
+// Override by setting ADMIN_TOKEN in backend/.env
+const ADMIN_TOKEN = process.env.ADMIN_TOKEN || '101';
+
 async function ensureMessagesFile() {
   try {
     await fs.access(MESSAGES_FILE);
@@ -113,11 +117,10 @@ app.get('/', (req, res) => {
 
 // Admin: list saved messages (protected by ADMIN_TOKEN)
 app.get('/api/messages', async (req, res) => {
+  // Accept a default admin token in dev for convenience. Can be overridden in backend/.env
+  // NOTE: In production you should set a strong ADMIN_TOKEN env var.
   const token = req.get('Authorization')?.replace(/^Bearer\s+/i, '') || req.query.token;
-  if (!process.env.ADMIN_TOKEN) {
-    return res.status(403).json({ ok: false, error: 'Admin access disabled on server (no ADMIN_TOKEN set).' });
-  }
-  if (!token || token !== process.env.ADMIN_TOKEN) {
+  if (!token || token !== ADMIN_TOKEN) {
     return res.status(401).json({ ok: false, error: 'Unauthorized' });
   }
 
@@ -145,10 +148,7 @@ app.get('/api/content', async (req, res) => {
 
 app.put('/api/content', express.json(), async (req, res) => {
   const token = req.get('x-admin-token') || req.query.token;
-  if (!process.env.ADMIN_TOKEN) {
-    return res.status(403).json({ ok: false, error: 'Admin access disabled on server (no ADMIN_TOKEN set).' });
-  }
-  if (!token || token !== process.env.ADMIN_TOKEN) {
+  if (!token || token !== ADMIN_TOKEN) {
     return res.status(401).json({ ok: false, error: 'Unauthorized' });
   }
 
