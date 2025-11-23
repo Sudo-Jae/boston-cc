@@ -93,11 +93,14 @@
   }
 
   function setupContactFormHandler() {
-    var form = document.getElementById('contactForm');
-    if (!form) return;
-    var submit = form.querySelector('button[type="submit"]');
+    // There may be multiple forms with id 'contactForm' (older HTML variants) — attach handler to all.
+    var forms = document.querySelectorAll('#contactForm');
+    if (!forms || forms.length === 0) return;
 
-    form.addEventListener('submit', async function (ev) {
+    forms.forEach(function (form) {
+      var submit = form.querySelector('button[type="submit"]');
+
+      form.addEventListener('submit', async function (ev) {
       ev.preventDefault();
       var endpoint = form.dataset.endpoint || 'http://localhost:3001/api/contact';
       var data = serializeForm(form);
@@ -110,6 +113,16 @@
       showMessage(form, '', '');
 
       try {
+        // client-side cooldown to prevent accidental double submissions
+        var last = Number(form.dataset.lastSubmit || 0);
+        var cooldown = Number(form.dataset.cooldownMs || 15000);
+        if (Date.now() - last < cooldown) {
+          showMessage(form, 'Please wait a moment before sending again.', 'error');
+          if (submit) submit.disabled = false;
+          if (submit) submit.textContent = prev;
+          return;
+        }
+        form.dataset.lastSubmit = String(Date.now());
         var res = await fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -134,6 +147,7 @@
           submit.textContent = prev;
         }
       }
+    });
     });
   }
 
