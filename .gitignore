@@ -33,6 +33,16 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# backend ignores
+/backend/node_modules
+/backend/messages.json
+/backend/backend.log
+/backend/backend.pid
+
+# local static logs
+/static.log
+/static.pid
+
 # vercel
 .vercel
 
